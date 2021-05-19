@@ -14,6 +14,6 @@ def about():
     me = {
         "first_name": "Felipe",
         "last_name": "Botero",
-        "hobbies": "Soccer and bike riding"
+        "hobbies": "Horse Racing"
     }
     return str(me)
