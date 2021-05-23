@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Basic Hello World App"""
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -16,5 +16,5 @@ def about():
         "last_name": "Botero",
         "hobbies": "Horse Racing and coding"
     }
-    return str(me)
+    return render_template("about.html", user=me)
 
