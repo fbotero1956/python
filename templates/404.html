@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+
+{% block title %}Error - Not Found {% endblock title %}
+
+{% block content %} 
+<div class="container">
+    <div class="page-header">
+        <h1>You're lost!!!</h1>
+        <p>THis probably isn't the page you wanted</p>
+        <img src={{url_for("static", filename="") }} style="width: 40%" alt="rubber ducky">
+        <a href="{{ url_for('about') }}">Home</a>
+    </div>
+</div>
+{% endblock content %} 
