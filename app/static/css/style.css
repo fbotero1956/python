@@ -1,0 +1,22 @@
+img {
+    width: 45%;
+    height: 60vh;
+    padding-left:25px;
+}
+
+.welcome{
+    border: 2 solid black;
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(45,119,253,0.3981967787114846) 100%);
+}
+
+.nav-bkgrnd{
+    background: rgb(179,58,180);
+    background: radial-gradient(circle, rgba(179,58,180,1) 0%, rgba(112,223,211,0.35898109243697474) 21%, rgba(187,107,50,1) 100%);
+}
+.nav-link{
+    font-weight:600;
+}
+.navbar-brand{
+    font-weight:bold;
+}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block title %}Product Detail {% endblock title %}
+
+{% block content %} 
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1> {{ product.name }}</h1>
+        <h4>
+            {%if product.active %} 
+                Product is active
+            {% else %} 
+                Product id deactivated at this time
+            {% endif %}
+        </h4>
+        <br>
+        <p>Price: {{ "${:,.2f}".format(product.price) }}</p>
+        <p>Quantity: {{ product.quantity }}</p>
+        <p>Description: {{ product.description }}</p>
+        <a href={{ url_for("get_products") }}>List Products</a>
+        <a href={{ url_for("update_product_form", pid=product.id) }}>Update</a>
+        <a href="#">Deactivate</a>
+    </div>
+</div>   
+{% endblock content %} 

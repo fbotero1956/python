@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+
+{% block title %}Product Catalog Home {% endblock title %}
+
+{% block content %} 
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="jumbotron">
+                <h1 class="display-4">About me: </h1>
+                <img src={{url_for("static", filename="img/FelipeBoteroSelfie.jpg") }} alt="rubber ducky">
+                <img src={{url_for("static", filename="img/gotstormy.jpg") }} alt="rubber ducky">
+                <p class="lead">About me... I love life, the outdoors, meeting new people, hanging out with those I know and love and doing good.  I am not sure which I rather ride, my little blue mule or my sleek and fast Got Stormy, hmmmmm  
+                </p>
+
+                <p>Server Time: {{ version["server_time"] }}</p>
+            </div>
+        </div>
+    </div>      
+
+{% endblock content %} 

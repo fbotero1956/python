@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+
+{% block title %}Product List {% endblock title %}
+
+{% block content %} 
+    {% set i = 0 %} 
+    <div class="col-md-12" style="padding: 1%;">
+        {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                <div class="toast show align-items-center text-white bg-primary border-0"
+                    role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                      {{ message }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                          data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                </div>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %} 
+    </div>
+        <div class="row">
+        {% for product in product_list %} 
+            <div class="card" style="width: 18rem; margin: 0.5%;">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Price: {{ "${:,.2f}".format(product.price) }}
+                </h6>
+                <p class="card-text">Quantity: {{ product.quantity }}</p>
+                <a href={{ url_for("get_product_detail", pid=product.id) }} class="card-link">View Detail</a>
+                <a href={{ url_for("update_product_form", pid=product.id) }} class="card-link">Update</a>
+                <a href="#" class="card-link">Delete</a>
+            </div>
+                {% set i = i+1 %}
+                {% if i%3 == 0 %} 
+                    </div>
+                    <div class="row">
+                    {% endif %} 
+            {% endfor %}
+    </div>   
+
+{% endblock content %} 

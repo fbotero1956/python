@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+
+{% block title %}Product Catalog Home {% endblock title %}
+
+{% block content %} 
+    <div class="row">
+        <div class="col-md-8 offset-md-2 welcome">
+            <div class="jumbotron">
+                <h1 class="display-4">Product Catalog Home</h1>
+                <p class="lead">Current Version: {{ version["version"] }}</p>
+                <p>Server Time: {{ version["server_time"] }}</p>
+            </div>
+        </div>
+    </div>      
+
+{% endblock content %} 

@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block title %}Product List {% endblock title %}
+
+{% block content %} 
+    {% set i = 0 %} 
+    <div class="col-md-12" style="padding: 1%;">
+        {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                <div class="toast show align-items-center text-white bg-primary border-0"
+                    role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                      {{ message }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                          data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                </div>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %} 
+ 
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Links</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for product in product_list %} 
+        {% if product.active %}
+            {% if product.quantity < 101 %}
+                <tr class="table-danger">
+                {% elif product.quantity < 501 %}
+                    <tr class="table-warning">
+                    {% else %}
+                        <tr class="table-success">
+            {% endif %} 
+            <td>{{ product.id }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>
+                <a href={{ url_for("get_product_detail", pid=product.id) }} class="card-link">View Detail</a>
+                <a href={{ url_for("update_product_form", pid=product.id) }} class="card-link">Update</a>
+                <a href={{ url_for("deactivate", pid=product.id) }} class="card-link">Deactivate</a>
+            </td>
+          </tr>
+          {% endif %} 
+          {% endfor %}
+        </tbody>
+      </table> 
+
+{% endblock content %} 
