@@ -10,6 +10,8 @@ from app import app, db
 from datetime import datetime
 from app.database import Product
 from app.forms import ProductForm
+from app.database import Review
+from app.forms import ReviewForm
 
 @app.route("/")
 def index():
@@ -103,3 +105,29 @@ def activate(pid):
 def deactivated_list():
     products = Product.query.all()
     return render_template("deactive_products.html", product_list=products)
+
+@app.route("/reviews")
+def get_reviews():
+    reviews = Review.query.all()
+    return render_template("review_list.html", review_list=reviews)
+
+@app.route("/review/registrations")
+def create_review_form():
+    review_form = ReviewForm()
+    reviews = Review.query.order_by(Review.id.desc())
+    return render_template("review_list.html", form=review_form, review_list=reviews)
+
+@app.route("/reviews", methods=["POST"])
+def create_review():
+    """Create a new review"""
+    form = ReviewForm(request.form)
+    if form.validate():
+        review = Review()
+        review.name = form.name.data
+        review.reviewText = form.reviewText.data
+        db.session.add(review)
+        db.session.commit()
+        flash("Thank you for your review")
+        return redirect(url_for('create_review_form'))
+    flash("Invalid data")
+    return redirect(url_for('create_review_form'))
