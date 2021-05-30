@@ -11,7 +11,7 @@ def create_product(name, review):
     db.session.commit()
 
 if __name__ == "__main__":
-#    create_product("Felipe", "The best catalog around")
- #   create_product("Kelly", "They always deliver quality")
+    create_product("Felipe", "The best catalog around")
+    create_product("Kelly", "They always deliver quality")
     reviews = Review.query.all()
     print(reviews)

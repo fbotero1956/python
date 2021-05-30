@@ -25,15 +25,16 @@
         
         <div class="row">
             <div class="col-md-8 offset-md-2">
+              <H1>Please add a review of our product catalog site.</H1>
                 <form method="POST" action="{{ url_for('create_review') }}" class="form" role="form">
                     {{ form.csrf_token }}
                     <div class="form-grop col-md-12">{{ wtf.form_field(
                                                         form.name, class='form-control',
-                                                        placeholder='Me')
+                                                        placeholder='Your name')
                                                     }} </div>  
                         <div class="form-grop col-md-12">{{ wtf.form_field(
                                                         form.reviewText, class='form-control',
-                                                        placeholder='The Best')
+                                                        placeholder='Your review')
                                             }} </div>
                         <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Add Review</button>

@@ -12,9 +12,6 @@ from app.database import Product
 from app.forms import ProductForm
 from app.database import Review
 from app.forms import ReviewForm
-from app.forms import ProdReviewForm
-from app.database import ProdReview
-
 
 @app.route("/")
 def index():
@@ -44,9 +41,7 @@ def get_products():
 @app.route("/products/<int:pid>")
 def get_product_detail(pid):
     product = Product.query.filter_by(id=pid).first()
-    review_form = ProdReviewForm()
-    reviews = ProdReview.query.order_by(ProdReview.id.desc())
-    return render_template("product_detail.html", product=product, form=review_form, review_list=reviews)
+    return render_template("product_detail.html", product=product)
 
 @app.route("/products/<int:pid>", methods=["POST"])
 def update_product(pid):
@@ -96,18 +91,14 @@ def deactivate(pid):
     product = Product.query.filter_by(id=pid).first()
     product.active = False
     db.session.commit()
-    review_form = ProdReviewForm()
-    reviews = ProdReview.query.order_by(ProdReview.id.desc())
-    return render_template("product_detail.html", product=product, form=review_form, review_list=reviews)
+    return render_template("product_detail.html", product=product)
 
 @app.route("/products/activation/<int:pid>", methods=["GET", "POST"])
 def activate(pid):
     product = Product.query.filter_by(id=pid).first()
     product.active = True
     db.session.commit()
-    review_form = ProdReviewForm()
-    reviews = ProdReview.query.order_by(ProdReview.id.desc())
-    return render_template("product_detail.html", product=product, form=review_form, review_list=reviews)
+    return render_template("product_detail.html", product=product)
 
 
 @app.route("/products/deactivated")
@@ -141,25 +132,24 @@ def create_review():
     flash("Invalid data")
     return redirect(url_for('create_review_form'))
 
-@app.route("/prodreview/registrations/<int:pid>")
+@app.route("/prodreview/registrations")
 def create_prodreview_form(pid):
     product = Product.query.filter_by(id=pid).first()
     review_form = ProdReviewForm()
     reviews = ProdReview.query.order_by(ProdReview.id.desc())
     return render_template("product_detail.html", product=product, form=review_form, review_list=reviews)
 
-@app.route("/prodreviews/<int:pid>", methods=["POST"])
-def create_prodreview(pid):
+@app.route("/prodreviews", methods=["POST"])
+def create_preview():
     """Create a new review"""
     form = ProdReviewForm(request.form)
     if form.validate():
         review = ProdReview()
         review.name = form.name.data
-        review.product_id = pid
         review.reviewText = form.reviewText.data
         db.session.add(review)
         db.session.commit()
         flash("Thank you for your review")
-        return redirect(url_for('create_prodreview_form', pid=pid))
+        return redirect(url_for('create_review_form'))
     flash("Invalid data")
-    return redirect(url_for('create_prodreview_form', pid=pid))
+    return redirect(url_for('create_review_form'))

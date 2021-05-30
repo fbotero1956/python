@@ -22,3 +22,13 @@ class Review(db.Model):
 
     def __repr__(self):
         return "<review %r>" % self.reviewText
+
+class ProdReview(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    reviewText = db.Column(db.Text, nullable=True)
+    active = db.Column(db.Boolean, nullable=False, default=True)
+
+    def __repr__(self):
+        return "<review %r>" % self.reviewText

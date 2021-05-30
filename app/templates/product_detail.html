@@ -1,4 +1,5 @@
 {% extends 'base.html' %} 
+{% import "bootstrap/wtf.html" as wtf %} 
 
 {% block title %}Product Detail {% endblock title %}
 
@@ -17,9 +18,74 @@
         <p>Price: {{ "${:,.2f}".format(product.price) }}</p>
         <p>Quantity: {{ product.quantity }}</p>
         <p>Description: {{ product.description }}</p>
-        <a href={{ url_for("get_products") }}>List Products</a>
-        <a href={{ url_for("update_product_form", pid=product.id) }}>Update</a>
-        <a href="#">Deactivate</a>
+        <a href={{ url_for("get_products") }}>List Products</a> |
+        <a href={{ url_for("update_product_form", pid=product.id) }}>Update</a> |
+        <a href={{ url_for("deactivate", pid=product.id) }} class="card-link">Deactivate</a>
+        <div>
+            <br>
+            <h3>Please add a review of our product!</h3>
+        </div>
     </div>
-</div>   
+</div> 
+
+
+{% set i = 0 %} 
+<div class="col-md-12" style="padding: 1%;">
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="toast show align-items-center text-white bg-primary border-0"
+        role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ message }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+    {% endfor %}
+{% endif %} 
+{% endwith %} 
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form method="POST" action="{{ url_for('create_prodreview', pid=product.id) }}" class="form" role="form">
+            {{ form.csrf_token }}
+            <div class="form-grop col-md-12">{{ wtf.form_field(
+                                                form.name, class='form-control',
+                                                placeholder='Your name')
+                                            }} </div>  
+                <div class="form-grop col-md-12">{{ wtf.form_field(
+                                                form.reviewText, class='form-control',
+                                                placeholder='Your product review')
+                                    }} </div>
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Add Review</button>
+                </div>
+        </form>
+    </div>
+</div> 
+
+<table class="table">
+<thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Review</th>
+  </tr>
+</thead>
+<tbody>
+{% for review in review_list %} 
+    {% if review.active %}
+        {% if review.product_id == product.id %} 
+            <tr>
+                <td>{{ review.name }}</td>
+                <td>{{ review.reviewText }}</td>
+            </tr>
+        {% endif %} 
+    {% endif %} 
+  {% endfor %}
+</tbody>
+</table> 
 {% endblock content %} 

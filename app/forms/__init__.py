@@ -25,3 +25,10 @@ class ReviewForm(Form):
                         [validators.required(), validators.length(min=4, max=45)],
                         render_kw=style)
     reviewText = TextField("Review", [validators.required()], render_kw=style)
+
+class ProdReviewForm(Form):
+    style = {"style": "width:100%"}
+    name = StringField("Name",
+                        [validators.required(), validators.length(min=4, max=45)],
+                        render_kw=style)
+    reviewText = TextField("Review", [validators.required()], render_kw=style)

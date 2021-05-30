@@ -20,3 +20,7 @@ img {
 .navbar-brand{
     font-weight:bold;
 }
+.table {
+    width:66%;
+    margin-left: 17%;
+}

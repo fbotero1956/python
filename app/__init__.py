@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mynewestdb.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mymostnewestdb.db"
 app.config["SECRET_KEY"] = "secretkey"
 db = SQLAlchemy(app)
 Bootstrap(app)
